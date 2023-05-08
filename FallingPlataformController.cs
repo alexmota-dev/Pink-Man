@@ -22,6 +22,14 @@ public class FallingPlataformController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.gameObject.layer == 9)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Falling()
     {
         target.enabled = false;
