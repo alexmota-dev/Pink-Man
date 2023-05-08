@@ -10,16 +10,12 @@ public class PlayerController : MonoBehaviour
     public bool isJumping;
     public bool doubleJump;
 
-    public bool disableAnimationUpFall;
-    public bool fall;
-
     private Rigidbody2D rig;
     private Animator anim;
     private float speedY;
-    // Start is called before the first frame update
+
     void Start()
     {
-        disableAnimationUpFall = true;
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
@@ -55,47 +51,47 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void walkAnimationUpdate(float inputGetAxis)
-    {
-        if(inputGetAxis > 0f)
-        {
-            //andando pra direita
-            anim.SetBool("walk",true);
-            transform.eulerAngles = new Vector3(0f,0f,0f);
-        }
-        if(inputGetAxis < 0f)
-        {
-            //andando pra direita
-            anim.SetBool("walk",true);
-            transform.eulerAngles = new Vector3(0f,180f,0f);
-        }
-        if(inputGetAxis == 0)
-        {
-            anim.SetBool("walk",false);
-        }
-    }
+    // private void walkAnimationUpdate(float inputGetAxis)
+    // {
+    //     if(inputGetAxis > 0f)
+    //     {
+    //         //andando pra direita
+    //         anim.SetBool("walk",true);
+    //         transform.eulerAngles = new Vector3(0f,0f,0f);
+    //     }
+    //     if(inputGetAxis < 0f)
+    //     {
+    //         //andando pra direita
+    //         anim.SetBool("walk",true);
+    //         transform.eulerAngles = new Vector3(0f,180f,0f);
+    //     }
+    //     if(inputGetAxis == 0)
+    //     {
+    //         anim.SetBool("walk",false);
+    //     }
+    // }
 
     void Move()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
         transform.position += movement * Time.deltaTime * speed;
-        walkAnimationUpdate(Input.GetAxis("Horizontal"));
-        // if(Input.GetAxis("Horizontal") > 0f)
-        // {
-        //     //andando pra direita
-        //     anim.SetBool("walk",true);
-        //     transform.eulerAngles = new Vector3(0f,0f,0f);
-        // }
-        // if(Input.GetAxis("Horizontal") < 0f)
-        // {
-        //     //andando pra direita
-        //     anim.SetBool("walk",true);
-        //     transform.eulerAngles = new Vector3(0f,180f,0f);
-        // }
-        // if(Input.GetAxis("Horizontal") == 0)
-        // {
-        //     anim.SetBool("walk",false);
-        // }
+        // walkAnimationUpdate(Input.GetAxis("Horizontal"));
+        if(Input.GetAxis("Horizontal") > 0f)
+        {
+            //andando pra direita
+            anim.SetBool("walk",true);
+            transform.eulerAngles = new Vector3(0f,0f,0f);
+        }
+        if(Input.GetAxis("Horizontal") < 0f)
+        {
+            //andando pra direita
+            anim.SetBool("walk",true);
+            transform.eulerAngles = new Vector3(0f,180f,0f);
+        }
+        if(Input.GetAxis("Horizontal") == 0)
+        {
+            anim.SetBool("walk",false);
+        }
     }
     void Jump()
     {
