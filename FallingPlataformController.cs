@@ -6,12 +6,12 @@ public class FallingPlataformController : MonoBehaviour
 {
     public float fallTime;
     private TargetJoint2D target;
-    private BoxCollider boxCollider;
+    private BoxCollider2D boxCollider;
     // Start is called before the first frame update
     void Start()
     {
         target = GetComponent<TargetJoint2D>();
-        boxCollider = GetComponent<BoxCollider>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
