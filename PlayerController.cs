@@ -51,47 +51,31 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // private void walkAnimationUpdate(float inputGetAxis)
-    // {
-    //     if(inputGetAxis > 0f)
-    //     {
-    //         //andando pra direita
-    //         anim.SetBool("walk",true);
-    //         transform.eulerAngles = new Vector3(0f,0f,0f);
-    //     }
-    //     if(inputGetAxis < 0f)
-    //     {
-    //         //andando pra direita
-    //         anim.SetBool("walk",true);
-    //         transform.eulerAngles = new Vector3(0f,180f,0f);
-    //     }
-    //     if(inputGetAxis == 0)
-    //     {
-    //         anim.SetBool("walk",false);
-    //     }
-    // }
-
-    void Move()
+    private void walkAnimationUpdate(float inputGetAxis)
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += movement * Time.deltaTime * speed;
-        // walkAnimationUpdate(Input.GetAxis("Horizontal"));
-        if(Input.GetAxis("Horizontal") > 0f)
+        if(inputGetAxis > 0f)
         {
             //andando pra direita
             anim.SetBool("walk",true);
             transform.eulerAngles = new Vector3(0f,0f,0f);
         }
-        if(Input.GetAxis("Horizontal") < 0f)
+        if(inputGetAxis < 0f)
         {
             //andando pra direita
             anim.SetBool("walk",true);
             transform.eulerAngles = new Vector3(0f,180f,0f);
         }
-        if(Input.GetAxis("Horizontal") == 0)
+        if(inputGetAxis == 0)
         {
             anim.SetBool("walk",false);
         }
+    }
+
+    void Move()
+    {
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+        transform.position += movement * Time.deltaTime * speed;
+        walkAnimationUpdate(Input.GetAxis("Horizontal"));
     }
     void Jump()
     {
