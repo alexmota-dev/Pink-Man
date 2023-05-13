@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     public int totalScore;
     //importe UnityEngine.UI pra usar o scoreText
     public Text scoreText;
-    public GameObject gameOver;
+    public GameObject gameOverPanel;
 
     public static GameController instance;
     // Start is called before the first frame update
@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
 
     public void ShowGameOver()
     {
-        gameOver.SetActive(true);
+        gameOverPanel.SetActive(true);
     }
 
 }
