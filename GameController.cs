@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public int totalScore;
     //importe UnityEngine.UI pra usar o scoreText
     public Text scoreText;
+    public GameObject gameOver;
 
     public static GameController instance;
     // Start is called before the first frame update
@@ -20,6 +21,11 @@ public class GameController : MonoBehaviour
     public void UpdateScoreText()
     {
         scoreText.text = totalScore.ToString();
+    }
+
+    public void ShowGameOver()
+    {
+        gameOver.SetActive(true);
     }
 
 }
