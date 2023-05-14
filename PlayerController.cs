@@ -102,6 +102,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Plataforma cai !");
         }
+
+        if(collision.gameObject.tag == "Spike")
+        {
+            GameController.instance.ShowGameOver();
+            Destroy(gameObject);
+        }
+
         if(collision.gameObject.layer == 8)
         {
             isJumping = false;
