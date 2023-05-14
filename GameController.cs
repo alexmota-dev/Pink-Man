@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameController : MonoBehaviour
     //importe UnityEngine.UI pra usar o scoreText
     public Text scoreText;
     public GameObject gameOverPanel;
+    public GameObject NextLevel;
 
     public static GameController instance;
     // Start is called before the first frame update
@@ -28,4 +30,8 @@ public class GameController : MonoBehaviour
         gameOverPanel.SetActive(true);
     }
 
+    public void RestartGame(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
+    }
 }
