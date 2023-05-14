@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Plataforma cai !");
         }
 
-        if(collision.gameObject.tag == "Spike")
+        if(collision.gameObject.tag == "Spike" || collision.gameObject.tag == "Enemy")
         {
             GameController.instance.ShowGameOver();
             Destroy(gameObject);
