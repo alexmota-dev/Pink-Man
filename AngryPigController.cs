@@ -18,8 +18,10 @@ public class AngryPigController : MonoBehaviour
     void Update()
     {
         if (indoParaDireita) {
+            transform.eulerAngles = new Vector3(0f,180f,0f);
             transform.position += Vector3.right * velocidade * Time.deltaTime;
         } else {
+            transform.eulerAngles = new Vector3(0f,0f,0f);
             transform.position -= Vector3.right * velocidade * Time.deltaTime;
         }
 
