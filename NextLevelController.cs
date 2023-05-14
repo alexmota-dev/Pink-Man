@@ -8,7 +8,7 @@ public class NextLevelController : MonoBehaviour
     public string levelName;
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 8)
+        if(collision.gameObject.tag == "Player")
         {
             SceneManager.LoadScene(levelName);
         }
