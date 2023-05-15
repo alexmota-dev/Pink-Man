@@ -4,29 +4,35 @@ using UnityEngine;
 
 public class AngryPigController : MonoBehaviour
 {
-    public float velocidade;
-    public float distancia;
-    private float posicaoInicial;
-    private bool indoParaDireita = true;
+    public float speed;
+    public float distance;
+    private float initialPosition;
+    private bool walkingToTheRight = true;
     // Start is called before the first frame update
     void Start()
     {
-        posicaoInicial = transform.position.x;
+        initialPosition = transform.position.x;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (indoParaDireita) {
+        MovimentRightLeft(speed, distance, initialPosition);
+        // MovimentRightLeft();
+    }
+
+    private void MovimentRightLeft(float speed, float distance, float initialPosition)
+    {
+        if (walkingToTheRight) {
             transform.eulerAngles = new Vector3(0f,180f,0f);
-            transform.position += Vector3.right * velocidade * Time.deltaTime;
+            transform.position += Vector3.right * speed * Time.deltaTime;
         } else {
             transform.eulerAngles = new Vector3(0f,0f,0f);
-            transform.position -= Vector3.right * velocidade * Time.deltaTime;
+            transform.position -= Vector3.right * speed * Time.deltaTime;
         }
-
-        if (Mathf.Abs(transform.position.x - posicaoInicial) >= distancia) {
-            indoParaDireita = !indoParaDireita;
+        Debug.Log(transform.position.x);
+        if (Mathf.Abs(transform.position.x - initialPosition) >= distance) {
+            walkingToTheRight = !walkingToTheRight;
         }
     }
 }
