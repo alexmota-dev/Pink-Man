@@ -39,4 +39,9 @@ public class GameController : MonoBehaviour
         ShowGameOver();
         Destroy(player);
     }
+
+    public void ImpulseUp(float jumpForce, Rigidbody2D rigidbody)
+    {
+        rigidbody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+    }
 }
