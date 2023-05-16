@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float JumpForce;
+    public float Hit;
 
     public bool isJumping;
     public bool doubleJump;
@@ -83,13 +84,13 @@ public class PlayerController : MonoBehaviour
         {
             if(!isJumping)
             {
-                rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+                GameController.instance.ImpulseUp(JumpForce, rig);
                 doubleJump = true;
             }
             else{
                 if(doubleJump)
                 {
-                    rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+                    GameController.instance.ImpulseUp(JumpForce, rig);
                     doubleJump = false;
                 }
             }
@@ -98,22 +99,18 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "TargetJoint")
+        if(collision.gameObject.tag == "Spike")
         {
-            Debug.Log("Plataforma cai !");
+            GameController.instance.PlayerDies(gameObject);
         }
 
-        if(collision.gameObject.tag == "Spike" || collision.gameObject.tag == "Enemy")
-        {
-            GameController.instance.ShowGameOver();
-            Destroy(gameObject);
-        }
 
         if(collision.gameObject.layer == 8)
         {
             isJumping = false;
         }
     }
+ 
     void OnCollisionExit2D(Collision2D collision)
     {
         if(collision.gameObject.layer == 8)
