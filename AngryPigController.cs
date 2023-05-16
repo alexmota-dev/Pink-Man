@@ -31,7 +31,6 @@ public class AngryPigController : MonoBehaviour
             transform.eulerAngles = new Vector3(0f,0f,0f);
             transform.position -= Vector3.right * speed * Time.deltaTime;
         }
-        // Debug.Log(transform.position.x);
         if (Mathf.Abs(transform.position.x - initialPosition) >= distance) {
             walkingToTheRight = !walkingToTheRight;
         }

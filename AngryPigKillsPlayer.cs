@@ -9,7 +9,6 @@ public class AngryPigKillsPlayer : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameController.instance.PlayerDies(collision.gameObject);
-            Debug.Log("Player Morre");
         }
     }
 }

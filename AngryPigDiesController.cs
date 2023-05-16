@@ -10,7 +10,6 @@ public class AngryPigDiesController : MonoBehaviour
         {
             // collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
             GameController.instance.ImpulseUp(6f, collision.gameObject.GetComponent<Rigidbody2D>());
-            Debug.Log("AngryPig Morre");
             Destroy(transform.parent.gameObject);
         }
     }

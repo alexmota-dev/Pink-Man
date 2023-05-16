@@ -30,7 +30,6 @@ public class SawController : MonoBehaviour
             transform.eulerAngles = new Vector3(0f,0f,0f);
             transform.position -= Vector3.right * speed * Time.deltaTime;
         }
-        Debug.Log(transform.position.x);
         if (Mathf.Abs(transform.position.x - initialPosition) >= distance) {
             walkingToTheRight = !walkingToTheRight;
         }
@@ -41,7 +40,6 @@ public class SawController : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameController.instance.PlayerDies(collision.gameObject);
-            Debug.Log("Player Morre");
         }
     }
 }
