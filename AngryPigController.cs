@@ -6,6 +6,7 @@ public class AngryPigController : MonoBehaviour
 {
     public float speed;
     public float distance;
+    public float jumpForce;
 
     private float initialPosition;
     private bool walkingToTheRight = true;
@@ -49,6 +50,7 @@ public class AngryPigController : MonoBehaviour
             {
                 // Player pulou no topo do AngryPig, então o AngryPig é destruído
                 Destroy(gameObject);
+                GameController.instance.ImpulseUp(jumpForce, collision.gameObject.GetComponent<Rigidbody2D>());
             }
             else
             {
