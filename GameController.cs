@@ -34,4 +34,9 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(levelName);
     }
+
+    public void PlayerDies(GameObject player){
+        ShowGameOver();
+        Destroy(player);
+    }
 }
