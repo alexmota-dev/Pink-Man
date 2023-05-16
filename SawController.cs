@@ -35,4 +35,13 @@ public class SawController : MonoBehaviour
             walkingToTheRight = !walkingToTheRight;
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            GameController.instance.PlayerDies(collision.gameObject);
+            Debug.Log("Player Morre");
+        }
+    }
 }
