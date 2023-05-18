@@ -12,13 +12,14 @@ public class PlayerController : MonoBehaviour
     public bool doubleJump;
 
     private Rigidbody2D rig;
-    private Animator anim;
+    public Animator anim;
     private float speedY;
-
+    public static PlayerController instance;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        instance = this;
     }
 
     // Update is called once per frame
