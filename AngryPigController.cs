@@ -9,10 +9,14 @@ public class AngryPigController : MonoBehaviour
 
     private float initialPosition;
     private bool walkingToTheRight = true;
+    public Animator anim;
+    public static AngryPigController instance;
     // Start is called before the first frame update
     void Start()
     {
         initialPosition = transform.position.x;
+        instance = this;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
