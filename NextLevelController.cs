@@ -10,7 +10,7 @@ public class NextLevelController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(levelName);
+            GameController.instance.RestartGame(levelName);
         }
     }
 }
