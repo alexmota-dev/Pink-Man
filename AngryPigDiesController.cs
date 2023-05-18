@@ -8,9 +8,9 @@ public class AngryPigDiesController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            // collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
-            GameController.instance.ImpulseUp(6f, collision.gameObject.GetComponent<Rigidbody2D>());
-            Destroy(transform.parent.gameObject);
+            AngryPigController.instance.anim.SetTrigger("destroy");
+            GameController.instance.ImpulseUp(10f, collision.gameObject.GetComponent<Rigidbody2D>());
+            Destroy(transform.parent.gameObject, 0.3f);
         }
     }
 }
