@@ -35,9 +35,10 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(levelName);
     }
 
-    public void PlayerDies(GameObject player){
-        ShowGameOver();
-        Destroy(player);
+    public void PlayerDies(GameObject gameObject){
+        Invoke("ShowGameOver",0.3f);
+        PlayerController.instance.anim.SetTrigger("destroy");
+        Destroy(gameObject, 0.3f);
     }
 
     public void ImpulseUp(float jumpForce, Rigidbody2D rigidbody)
