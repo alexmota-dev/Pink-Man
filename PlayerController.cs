@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isJumping;
     public bool doubleJump;
+    public bool isOnFan;
 
     private Rigidbody2D rig;
     public Animator anim;
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && !isOnFan)
         {
             if(!isJumping)
             {
@@ -117,6 +118,22 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.layer == 8)
         {
            isJumping = true; 
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.gameObject.layer == 11)
+        {
+            isOnFan = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.gameObject.layer == 11)
+        {
+            isOnFan = false;
         }
     }
 }
