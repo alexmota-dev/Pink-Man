@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class EnemyHeadController : MonoBehaviour
 {
     private int lives=2;
     private bool immunity = false;
     public string enemyName;
+    public event Action<EnemyHeadController> OnCollisionWithPlayer;
+
     IEnumerator WaitImmunity()
     {
         immunity = true;
@@ -42,10 +46,7 @@ public class EnemyHeadController : MonoBehaviour
                         }
                     break;
                 case "Bee":
-                    // BeeController.instance.anim.SetBool("destroy", true);
-                    transform.parent.gameObject.anim.SetBool("destroy", true);
-                    GameController.instance.ImpulseUp(11f, collision.gameObject.GetComponent<Rigidbody2D>());
-                    Destroy(transform.parent.gameObject, 0.5f);
+                    OnCollisionWithPlayer?.Invoke(this);
                     break;
                 default:
                     break;
