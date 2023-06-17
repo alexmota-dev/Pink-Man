@@ -39,4 +39,24 @@ public class AngryPigController : MonoBehaviour
             walkingToTheRight = !walkingToTheRight;
         }
     }
+
+    public void DoubleSpeed()
+    {
+        StartCoroutine(Expect());
+        // speed = speed * 2;
+        Debug.Log("Dobrando velocidade");
+    }
+
+    IEnumerator Expect()
+    {
+        float oldSpeed = speed;
+        speed = 0;
+        yield return new WaitForSeconds(0.3f);
+        speed = oldSpeed * 2;
+    }
+
+    // public void ExpectToGetAngry(){
+    //     StartCoroutine(Expect());
+    // }
+
 }
