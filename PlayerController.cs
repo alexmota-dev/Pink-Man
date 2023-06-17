@@ -76,9 +76,11 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += movement * Time.deltaTime * speed;
-        walkAnimationUpdate(Input.GetAxis("Horizontal"));
+        // Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+        // transform.position += movement * Time.deltaTime * speed;
+        float movement = Input.GetAxis("Horizontal");
+        rig.velocity = new Vector2(movement * speed, rig.velocity.y);
+        walkAnimationUpdate(movement);
     }
     void Jump()
     {
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Spike")
+        if(collision.gameObject.tag == "Spike" || collision.gameObject.tag == "Bullet")
         {
             GameController.instance.PlayerDies(gameObject);
         }
@@ -112,6 +114,15 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
         }
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 8)
+        {
+            isJumping = false;
+        }
+    }
+
  
     void OnCollisionExit2D(Collision2D collision)
     {
