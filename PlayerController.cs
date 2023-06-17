@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +22,14 @@ public class PlayerController : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         instance = this;
+        //revisar event Action<T>
+        //revisar essa parte do FindObjectsOfType
+        EnemyHeadController[] beeControllers = FindObjectsOfType<EnemyHeadController>();
+        foreach (EnemyHeadController beeController in beeControllers)
+        {
+            //revisar essa parte da chamada função
+            beeController.OnCollisionWithPlayer += DestroyBee;
+        }  
     }
 
     // Update is called once per frame
@@ -147,4 +156,17 @@ public class PlayerController : MonoBehaviour
             isOnFan = false;
         }
     }
+
+    private void DestroyBee(EnemyHeadController bee)
+    {
+        Animator beeAnimator = bee.transform.parent.GetComponent<Animator>();
+        if (beeAnimator != null)
+        {
+            beeAnimator.SetBool("destroy", true);
+        }
+        GameController.instance.ImpulseUp(11f, gameObject.GetComponent<Rigidbody2D>());
+        Destroy(bee.gameObject.transform.parent.gameObject, 0.5f);
+        // bee.gameObject.transform.parent.gameObject.anim.SetBool("destroy", true);
+    }
+
 }
