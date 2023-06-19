@@ -17,6 +17,13 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     private float speedY;
     public static PlayerController instance;
+
+    private int numberOfShots = 0;
+    private bool shotSkillIsActive = false;
+    public GameObject bulletPrefab;
+    public float bulletSpeed;
+    public Transform shootingPoint;
+
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -24,17 +31,25 @@ public class PlayerController : MonoBehaviour
         instance = this;
         //revisar event Action<T>
         //revisar essa parte do FindObjectsOfType
-        EnemyHeadController[] beeControllers = FindObjectsOfType<EnemyHeadController>();
-        foreach (EnemyHeadController beeController in beeControllers)
+        EnemyHeadController[] enemyHeadControllers = FindObjectsOfType<EnemyHeadController>();
+        foreach (EnemyHeadController enemyController in enemyHeadControllers)
         {
             //revisar essa parte da chamada função
-            beeController.OnCollisionWithPlayer += DestroyBee;
-        }  
+            enemyController.OnCollisionWithPlayer += DestroyEnemy;
+        }
+
+        EnemyBodyController[] enemyBodyControllers = FindObjectsOfType<EnemyBodyController>();
+        foreach (EnemyBodyController enemyController in enemyBodyControllers)
+        {
+            //revisar essa parte da chamada função
+            enemyController.OnCollisionWithBullet += DestroyEnemy;
+        } 
     }
 
     // Update is called once per frame
     void Update()
     {
+        ShotSkill();
         fallAndUpAnimationUpdate();
         Move();
         Jump();
@@ -91,6 +106,7 @@ public class PlayerController : MonoBehaviour
         rig.velocity = new Vector2(movement * speed, rig.velocity.y);
         walkAnimationUpdate(movement);
     }
+
     void Jump()
     {
         if(Input.GetButtonDown("Jump") && !isOnFan)
@@ -107,6 +123,15 @@ public class PlayerController : MonoBehaviour
                     doubleJump = false;
                 }
             }
+        }
+    }
+
+    void ShotSkill()
+    {
+        if(Input.GetButtonDown("Fire1") && shotSkillIsActive && numberOfShots > 0)
+        {
+            CreateBullet();
+            numberOfShots--;
         }
     }
 
@@ -157,16 +182,49 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DestroyBee(EnemyHeadController bee)
+    private void DestroyEnemy(EnemyHeadController enemy)
     {
-        Animator beeAnimator = bee.transform.parent.GetComponent<Animator>();
-        if (beeAnimator != null)
+        Animator enemyAnimator = enemy.transform.parent.GetComponent<Animator>();
+        if (enemyAnimator != null)
         {
-            beeAnimator.SetBool("destroy", true);
+            enemyAnimator.SetBool("destroy", true);
         }
         GameController.instance.ImpulseUp(11f, gameObject.GetComponent<Rigidbody2D>());
-        Destroy(bee.gameObject.transform.parent.gameObject, 0.5f);
+        Destroy(enemy.gameObject.transform.parent.gameObject, 0.5f);
         // bee.gameObject.transform.parent.gameObject.anim.SetBool("destroy", true);
     }
 
+    private void DestroyEnemy(EnemyBodyController enemy)
+    {
+        Animator enemyAnimator = enemy.transform.parent.GetComponent<Animator>();
+        if (enemyAnimator != null)
+        {
+            enemyAnimator.SetBool("destroy", true);
+        }
+        GameController.instance.ImpulseUp(11f, gameObject.GetComponent<Rigidbody2D>());
+        Destroy(enemy.gameObject.transform.parent.gameObject, 0.5f);
+        // bee.gameObject.transform.parent.gameObject.anim.SetBool("destroy", true);
+    }
+
+    public void setShotSkillIsActive(bool value)
+    {
+        shotSkillIsActive = value;
+        numberOfShots +=2;
+    }
+
+    void CreateBullet()
+    {
+        // Instancia a bala
+        GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
+        // Adiciona velocidade à bala
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        if(gameObject.transform.rotation.eulerAngles.y == 0f)
+        {
+            rb.velocity = Vector2.right * bulletSpeed;
+        }
+        if(gameObject.transform.rotation.eulerAngles.y == 180f)
+        {
+            rb.velocity = Vector2.left * bulletSpeed;
+        }
+    }
 }
