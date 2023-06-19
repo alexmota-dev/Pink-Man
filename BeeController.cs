@@ -8,13 +8,18 @@ public class BeeController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform shootingPoint;
     public float intervaloDeGeracao = 3f;
-
     public Animator anim;
+    public float speed;
+    public float distance;
+    private bool walkingToTheRight = true;
+    private float initialPosition;
+    // public static BeeController instance;
     // Start is called before the first frame update
     void Start()
     {
+        initialPosition = transform.position.x;
         anim = GetComponent<Animator>();
-        StartCoroutine(GerarBalas());
+        StartCoroutine(GenerateBullets());
         // StartCoroutine(AnimatorAttackStart());
         // StartCoroutine(AnimatorAttackEnd());
     }
@@ -22,7 +27,20 @@ public class BeeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Moviment(speed, distance, initialPosition);
+    }
+    private void Moviment(float speed, float distance, float initialPosition)
+    {
+        if (walkingToTheRight) {
+            transform.eulerAngles = new Vector3(0f,180f,0f);
+            transform.position += Vector3.right * speed * Time.deltaTime;
+        } else {
+            transform.eulerAngles = new Vector3(0f,0f,0f);
+            transform.position -= Vector3.right * speed * Time.deltaTime;
+        }
+        if (Mathf.Abs(transform.position.x - initialPosition) >= distance) {
+            walkingToTheRight = !walkingToTheRight;
+        }
     }
 
     // IEnumerator AnimatorAttackStart()
@@ -43,7 +61,7 @@ public class BeeController : MonoBehaviour
         
     // }
     
-    IEnumerator  GerarBalas()
+    IEnumerator  GenerateBullets()
     {
         while (true)
         {
