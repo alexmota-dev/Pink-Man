@@ -11,6 +11,8 @@ public class EnemyHeadController : MonoBehaviour
     public string enemyName;
     public event Action<EnemyHeadController> OnCollisionWithPlayer;
 
+    public GameObject pineapplePrefab;
+
     IEnumerator WaitImmunity()
     {
         immunity = true;
@@ -20,7 +22,7 @@ public class EnemyHeadController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" || collision.gameObject.tag == "BulletPlayer")
         {
             switch (enemyName)
             {
@@ -46,6 +48,10 @@ public class EnemyHeadController : MonoBehaviour
                         }
                     break;
                 case "Bee":
+                    OnCollisionWithPlayer?.Invoke(this);
+                    break;
+                case "Plant":
+                    pineapplePrefab.SetActive(true);
                     OnCollisionWithPlayer?.Invoke(this);
                     break;
                 default:
