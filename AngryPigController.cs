@@ -14,8 +14,8 @@ public class AngryPigController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initialPosition = transform.position.x;
         instance = this;
+        initialPosition = transform.position.x;
         anim = GetComponent<Animator>();
     }
 
@@ -43,8 +43,6 @@ public class AngryPigController : MonoBehaviour
     public void DoubleSpeed()
     {
         StartCoroutine(Expect());
-        // speed = speed * 2;
-        Debug.Log("Dobrando velocidade");
     }
 
     IEnumerator Expect()
