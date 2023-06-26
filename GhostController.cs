@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class GhostController : MonoBehaviour
@@ -11,10 +12,14 @@ public class GhostController : MonoBehaviour
     private bool ida = true;
     private float speedY;
     private Vector2 lastPosition;
+    private Animator anim;
+    private BoxCollider2D box;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        box = GetComponent<BoxCollider2D>();
         objeto = objetos[i];
     }
 
@@ -42,6 +47,23 @@ public class GhostController : MonoBehaviour
         Moviment();
     }
 
+    private IEnumerator waitAnim()
+    {
+        float speedLast = PlayerController.instance.speed;
+        PlayerController.instance.speed = PlayerController.instance.speed/2;
+        anim.SetBool("playerTouch",true);
+        box.enabled  = false;
+        yield return new WaitForSeconds(2f);
+        anim.SetBool("playerTouch",false);
+        //ghost desaparece aqui
+        anim.SetBool("appear",true);
+        yield return new WaitForSeconds(2f);
+        box.enabled  = true;
+        anim.SetBool("appear",false);
+        StartCoroutine(waitAnim());
+        PlayerController.instance.speed = speedLast;
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.tag == "Point"){
@@ -63,6 +85,10 @@ public class GhostController : MonoBehaviour
                     ida = true;
                 }
             }
+        }
+
+        if(collider.gameObject.tag == "Player"){
+            StartCoroutine(waitAnim());
         }
     }
 }
