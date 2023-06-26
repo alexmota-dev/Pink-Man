@@ -18,7 +18,7 @@ public class AppleController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
             //desativando o spriteRenderer
             spriteRender.enabled = false;
@@ -30,7 +30,7 @@ public class AppleController : MonoBehaviour
             GameController.instance.totalScore += score;
             GameController.instance.UpdateScoreText();
 
-            Destroy(gameObject,0.25f);
+            Destroy(gameObject, 0.25f);
         }
     }
 }
