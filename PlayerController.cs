@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public float bulletSpeed;
     public Transform shootingPoint;
 
+    public int lifes = 4;
+
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
             //revisar essa parte da chamada função
             enemyController.OnCollisionWithBullet += DestroyEnemy;
         } 
+        // Debug.Log("New Scene");
+        // GameController.instance.UpdateScoreText();
     }
 
     // Update is called once per frame
@@ -139,7 +143,8 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Spike" || collision.gameObject.tag == "Bullet")
         {
-            GameController.instance.PlayerDies(gameObject);
+            Debug.Log("A bala acertou o player !");
+            GameController.instance.PlayerSuffersDamage(gameObject);
         }
 
 

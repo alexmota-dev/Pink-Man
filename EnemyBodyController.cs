@@ -23,7 +23,7 @@ public class EnemyBodyController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            GameController.instance.PlayerDies(collision.gameObject);
+            GameController.instance.PlayerSuffersDamage(collision.gameObject);
         }
         if(collision.gameObject.tag == "BulletPlayer")
         {

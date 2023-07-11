@@ -27,7 +27,7 @@ public class AppleController : MonoBehaviour
             //ativando o gameObject collected
             collected.SetActive(true);
 
-            GameController.instance.totalScore += score;
+            GameManager.IncrementScore(score);
             GameController.instance.UpdateScoreText();
 
             Destroy(gameObject,0.25f);

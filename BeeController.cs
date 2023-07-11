@@ -20,8 +20,6 @@ public class BeeController : MonoBehaviour
         initialPosition = transform.position.x;
         anim = GetComponent<Animator>();
         StartCoroutine(GenerateBullets());
-        // StartCoroutine(AnimatorAttackStart());
-        // StartCoroutine(AnimatorAttackEnd());
     }
 
     // Update is called once per frame
@@ -42,26 +40,8 @@ public class BeeController : MonoBehaviour
             walkingToTheRight = !walkingToTheRight;
         }
     }
-
-    // IEnumerator AnimatorAttackStart()
-    // {
-    //     while (true)
-    //     {
-    //         anim.SetBool("attack",true);
-    //         yield return new WaitForSeconds(startAnimationInterval);
-    //     }
-    // }
-    // IEnumerator AnimatorAttackEnd()
-    // {
-    //     while (true)
-    //     {
-    //         anim.SetBool("attack",false);
-    //         yield return new WaitForSeconds(intervaloDeGeracao);
-    //     }
-        
-    // }
     
-    IEnumerator  GenerateBullets()
+    IEnumerator GenerateBullets()
     {
         while (true)
         {
