@@ -19,9 +19,10 @@ public class BoxController : MonoBehaviour
 
     private IEnumerator destroyBox()
     {
-        anim.SetBool("breaking",true);
+
+        anim.SetBool("breaking", true);
         yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject,1f);
+        Destroy(gameObject, 1f);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

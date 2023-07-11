@@ -13,18 +13,35 @@ public class BeeController : MonoBehaviour
     public float distance;
     private bool walkingToTheRight = true;
     private float initialPosition;
-    // public static BeeController instance;
-    // Start is called before the first frame update
     void Start()
     {
         initialPosition = transform.position.x;
+        initialPosition = transform.position.x;
         anim = GetComponent<Animator>();
+        StartCoroutine(GenerateBullets());
         StartCoroutine(GenerateBullets());
     }
 
-    // Update is called once per frame
     void Update()
     {
+        Moviment(speed, distance, initialPosition);
+    }
+    private void Moviment(float speed, float distance, float initialPosition)
+    {
+        if (walkingToTheRight)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            transform.position += Vector3.right * speed * Time.deltaTime;
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            transform.position -= Vector3.right * speed * Time.deltaTime;
+        }
+        if (Mathf.Abs(transform.position.x - initialPosition) >= distance)
+        {
+            walkingToTheRight = !walkingToTheRight;
+        }
         Moviment(speed, distance, initialPosition);
     }
     private void Moviment(float speed, float distance, float initialPosition)
@@ -40,7 +57,6 @@ public class BeeController : MonoBehaviour
             walkingToTheRight = !walkingToTheRight;
         }
     }
-    
     IEnumerator GenerateBullets()
     {
         while (true)
@@ -50,7 +66,6 @@ public class BeeController : MonoBehaviour
             CreateBullet();
             yield return new WaitForSeconds(0.15f);
             anim.SetBool("attack", false);
-            // CreateBullet();
             yield return new WaitForSeconds(intervaloDeGeracao);
         }
     }

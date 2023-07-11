@@ -6,7 +6,7 @@ using System;
 
 public class EnemyHeadController : MonoBehaviour
 {
-    private int lives=2;
+    private int lives = 2;
     private bool immunity = false;
     public string enemyName;
     public event Action<EnemyHeadController> OnCollisionWithPlayer;
@@ -27,25 +27,25 @@ public class EnemyHeadController : MonoBehaviour
             switch (enemyName)
             {
                 case "Pig":
-                        if(lives == 1)
+                    if (lives == 1)
+                    {
+                        if (!immunity)
                         {
-                            if(!immunity)
-                            {
-                                AngryPigController.instance.anim.SetBool("destroy",true);
-                                GameController.instance.ImpulseUp(11f, collision.gameObject.GetComponent<Rigidbody2D>());
-                                Destroy(transform.parent.gameObject, 0.45f);
-                            }
-                        }
-                        if(lives > 1)
-                        {
-                            AngryPigController.instance.anim.SetBool("hitOne",true);
+                            AngryPigController.instance.anim.SetBool("destroy", true);
                             GameController.instance.ImpulseUp(11f, collision.gameObject.GetComponent<Rigidbody2D>());
-                            // AngryPigController.instance.ExpectToGetAngry();
-                            AngryPigController.instance.DoubleSpeed();
-                            AngryPigController.instance.anim.SetBool("isAngry",true);
-                            StartCoroutine(WaitImmunity());
-                            lives--;
+                            Destroy(transform.parent.gameObject, 0.45f);
                         }
+                    }
+                    if (lives > 1)
+                    {
+                        AngryPigController.instance.anim.SetBool("hitOne", true);
+                        GameController.instance.ImpulseUp(11f, collision.gameObject.GetComponent<Rigidbody2D>());
+                        // AngryPigController.instance.ExpectToGetAngry();
+                        AngryPigController.instance.DoubleSpeed();
+                        AngryPigController.instance.anim.SetBool("isAngry", true);
+                        StartCoroutine(WaitImmunity());
+                        lives--;
+                    }
                     break;
                 case "Bee":
                     OnCollisionWithPlayer?.Invoke(this);

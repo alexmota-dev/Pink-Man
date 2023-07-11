@@ -19,9 +19,23 @@ public class EnemyBodyController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         immunity = false;
     }
+    private int livesPig = 2;
+    private bool immunity = false;
+    public string enemyName;
+    //alterei o nome pra ficar o o body j� que o tipo dela � diferente, o nome precisa ser corrigido posteriormente.
+    public event Action<EnemyBodyController> OnCollisionWithBullet;
+
+    public GameObject pineapplePrefab;
+
+    IEnumerator WaitImmunity()
+    {
+        immunity = true;
+        yield return new WaitForSeconds(2f);
+        immunity = false;
+    }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             GameController.instance.PlayerSuffersDamage(collision.gameObject);
         }

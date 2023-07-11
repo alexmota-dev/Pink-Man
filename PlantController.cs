@@ -19,10 +19,10 @@ public class PlantController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    IEnumerator  GenerateBullets()
+    IEnumerator GenerateBullets()
     {
         while (true)
         {
@@ -40,13 +40,13 @@ public class PlantController : MonoBehaviour
     {
         // Instancia a bala
         GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
-        // Adiciona velocidade à bala
+        // Adiciona velocidade � bala
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        if(gameObject.transform.rotation.eulerAngles.y == 0f)
+        if (gameObject.transform.rotation.eulerAngles.y == 0f)
         {
             rb.velocity = Vector2.left * bulletSpeed;
         }
-        if(gameObject.transform.rotation.eulerAngles.y == 180f)
+        if (gameObject.transform.rotation.eulerAngles.y == 180f)
         {
             rb.velocity = Vector2.right * bulletSpeed;
         }

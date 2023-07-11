@@ -23,21 +23,25 @@ public class SawController : MonoBehaviour
 
     private void MovimentRightLeft(float speed, float distance, float initialPosition)
     {
-        if (walkingToTheRight) {
-            transform.eulerAngles = new Vector3(0f,180f,0f);
+        if (walkingToTheRight)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
             transform.position += Vector3.right * speed * Time.deltaTime;
-        } else {
-            transform.eulerAngles = new Vector3(0f,0f,0f);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
             transform.position -= Vector3.right * speed * Time.deltaTime;
         }
-        if (Mathf.Abs(transform.position.x - initialPosition) >= distance) {
+        if (Mathf.Abs(transform.position.x - initialPosition) >= distance)
+        {
             walkingToTheRight = !walkingToTheRight;
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             GameController.instance.PlayerSuffersDamage(collision.gameObject);
         }

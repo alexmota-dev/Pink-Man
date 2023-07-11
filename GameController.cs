@@ -12,6 +12,10 @@ public class GameController : MonoBehaviour
     public List<GameObject> lifes;
     private bool playerThisImmortal = false;
     private int i = 1;
+    public List<GameObject> lifes;
+    private bool playerThisImmortal = false;
+    private int i = 1;
+
     public static GameController instance;
 
     void Start()
@@ -38,31 +42,33 @@ public class GameController : MonoBehaviour
     private IEnumerator PlayerBecomesImmortal()
     {
         playerThisImmortal = true;
-        PlayerController.instance.anim.SetBool("destroy",true);
+        PlayerController.instance.anim.SetBool("destroy", true);
         yield return new WaitForSeconds(3f);
-        PlayerController.instance.anim.SetBool("destroy",false);
+        PlayerController.instance.anim.SetBool("destroy", false);
         playerThisImmortal = false;
     }
 
-    public void PlayerSuffersDamage(GameObject player){
-        if(!playerThisImmortal)
+    public void PlayerSuffersDamage(GameObject player)
+    {
+        if (!playerThisImmortal)
         {
-            GameObject life = lifes[lifes.Count-i];
+            GameObject life = lifes[lifes.Count - i];
             i++;
             life.SetActive(false);
             StartCoroutine(PlayerBecomesImmortal());
-            PlayerController.instance.lifes = PlayerController.instance.lifes-1;
-            Debug.Log("O player tem "+ PlayerController.instance.lifes +" vidas");
-            if(PlayerController.instance.lifes == 0)
+            PlayerController.instance.lifes = PlayerController.instance.lifes - 1;
+            Debug.Log("O player tem " + PlayerController.instance.lifes + " vidas");
+            if (PlayerController.instance.lifes == 0)
             {
                 PlayerDies(player);
             }
         }
     }
 
-    private void PlayerDies(GameObject player){
-        Invoke("ShowGameOver",0.3f);
-        PlayerController.instance.anim.SetBool("destroy",true);
+    private void PlayerDies(GameObject player)
+    {
+        Invoke("ShowGameOver", 0.3f);
+        PlayerController.instance.anim.SetBool("destroy", true);
         Destroy(player, 0.3f);
     }
 

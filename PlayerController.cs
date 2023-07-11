@@ -69,36 +69,36 @@ public class PlayerController : MonoBehaviour
     {
         if (speedY > 0)
         {
-            anim.SetBool("up",true);
+            anim.SetBool("up", true);
         }
         else if (speedY < 0)
         {
-            anim.SetBool("fall",true);
+            anim.SetBool("fall", true);
         }
-        else if(speedY == 0)
+        else if (speedY == 0)
         {
-            anim.SetBool("fall",false);
-            anim.SetBool("up",false);
+            anim.SetBool("fall", false);
+            anim.SetBool("up", false);
         }
     }
-    
+
     private void walkAnimationUpdate(float inputGetAxis)
     {
-        if(inputGetAxis > 0f)
+        if (inputGetAxis > 0f)
         {
             //andando pra direita
-            anim.SetBool("walk",true);
-            transform.eulerAngles = new Vector3(0f,0f,0f);
+            anim.SetBool("walk", true);
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
-        if(inputGetAxis < 0f)
+        if (inputGetAxis < 0f)
         {
             //andando pra direita
-            anim.SetBool("walk",true);
-            transform.eulerAngles = new Vector3(0f,180f,0f);
+            anim.SetBool("walk", true);
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
-        if(inputGetAxis == 0)
+        if (inputGetAxis == 0)
         {
-            anim.SetBool("walk",false);
+            anim.SetBool("walk", false);
         }
     }
 
@@ -113,15 +113,16 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if(Input.GetButtonDown("Jump") && !isOnFan)
+        if (Input.GetButtonDown("Jump") && !isOnFan)
         {
-            if(!isJumping)
+            if (!isJumping)
             {
                 GameController.instance.ImpulseUp(JumpForce, rig);
                 doubleJump = true;
             }
-            else{
-                if(doubleJump)
+            else
+            {
+                if (doubleJump)
                 {
                     GameController.instance.ImpulseUp(JumpForce, rig);
                     doubleJump = false;
@@ -141,14 +142,14 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Spike" || collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Spike" || collision.gameObject.tag == "Bullet")
         {
             Debug.Log("A bala acertou o player !");
             GameController.instance.PlayerSuffersDamage(gameObject);
         }
 
 
-        if(collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8)
         {
             isJumping = false;
         }
@@ -156,24 +157,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8)
         {
             isJumping = false;
         }
     }
 
- 
+
     void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8)
         {
-           isJumping = true; 
+            isJumping = true;
         }
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.gameObject.layer == 11)
+        if (collider.gameObject.layer == 11)
         {
             isOnFan = true;
         }
@@ -181,7 +182,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if(collider.gameObject.layer == 11)
+        if (collider.gameObject.layer == 11)
         {
             isOnFan = false;
         }

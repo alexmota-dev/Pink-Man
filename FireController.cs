@@ -21,7 +21,7 @@ public class FireController : MonoBehaviour
 
     IEnumerator ActivatingFire()
     {
-        while(true)
+        while (true)
         {
             anim.SetBool("on", true);
             childComponent.SetActive(true);

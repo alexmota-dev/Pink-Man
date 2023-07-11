@@ -25,19 +25,22 @@ public class GhostController : MonoBehaviour
 
     private void Moviment()
     {
-        // Calcula a direção do objetoB em relação ao objetoA
-        if(objeto){
+        // Calcula a dire��o do objetoB em rela��o ao objetoA
+        if (objeto)
+        {
             Vector2 direcao = (objeto.position - transform.position).normalized;
             rb.MovePosition(rb.position + direcao * velocidade * Time.fixedDeltaTime);
 
-            // Calcula a direção do movimento
+            // Calcula a dire��o do movimento
             Vector2 movementDirection = rb.position.normalized;
 
-            if(objeto.position.x > gameObject.transform.position.x){
-                transform.eulerAngles = new Vector3(0f,180f,0f);
+            if (objeto.position.x > gameObject.transform.position.x)
+            {
+                transform.eulerAngles = new Vector3(0f, 180f, 0f);
             }
-            if(objeto.position.x < gameObject.transform.position.x){
-                transform.eulerAngles = new Vector3(0f,0,0f);
+            if (objeto.position.x < gameObject.transform.position.x)
+            {
+                transform.eulerAngles = new Vector3(0f, 0, 0f);
             }
         }
     }
@@ -50,36 +53,43 @@ public class GhostController : MonoBehaviour
     private IEnumerator waitAnim()
     {
         float speedLast = PlayerController.instance.speed;
-        PlayerController.instance.speed = PlayerController.instance.speed/2;
-        anim.SetBool("playerTouch",true);
-        box.enabled  = false;
+        PlayerController.instance.speed = PlayerController.instance.speed / 2;
+        anim.SetBool("playerTouch", true);
+        box.enabled = false;
         yield return new WaitForSeconds(2f);
-        anim.SetBool("playerTouch",false);
+        anim.SetBool("playerTouch", false);
         //ghost desaparece aqui
-        anim.SetBool("appear",true);
+        anim.SetBool("appear", true);
         yield return new WaitForSeconds(2f);
-        box.enabled  = true;
-        anim.SetBool("appear",false);
+        box.enabled = true;
+        anim.SetBool("appear", false);
         StartCoroutine(waitAnim());
         PlayerController.instance.speed = speedLast;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Point"){
-            if(ida){
-                if(i+1 < objetos.Count){
+        if (collider.gameObject.tag == "Point")
+        {
+            if (ida)
+            {
+                if (i + 1 < objetos.Count)
+                {
                     objeto = objetos[++i];
                 }
-                else{
+                else
+                {
                     ida = false;
                 }
             }
-            if(!ida){
-                if(i-1 >= 0){
+            if (!ida)
+            {
+                if (i - 1 >= 0)
+                {
                     objeto = objetos[--i];
                 }
-                else{
+                else
+                {
                     i = 0;
                     objeto = objetos[objetos.Count - 1];
                     ida = true;
@@ -87,7 +97,8 @@ public class GhostController : MonoBehaviour
             }
         }
 
-        if(collider.gameObject.tag == "Player"){
+        if (collider.gameObject.tag == "Player")
+        {
             StartCoroutine(waitAnim());
         }
     }

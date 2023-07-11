@@ -28,14 +28,18 @@ public class AngryPigController : MonoBehaviour
 
     private void MovimentRightLeft(float speed, float distance, float initialPosition)
     {
-        if (walkingToTheRight) {
-            transform.eulerAngles = new Vector3(0f,180f,0f);
+        if (walkingToTheRight)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
             transform.position += Vector3.right * speed * Time.deltaTime;
-        } else {
-            transform.eulerAngles = new Vector3(0f,0f,0f);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
             transform.position -= Vector3.right * speed * Time.deltaTime;
         }
-        if (Mathf.Abs(transform.position.x - initialPosition) >= distance) {
+        if (Mathf.Abs(transform.position.x - initialPosition) >= distance)
+        {
             walkingToTheRight = !walkingToTheRight;
         }
     }

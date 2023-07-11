@@ -16,7 +16,7 @@ public class FallingPlataformController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             Invoke("Falling", fallTime);
         }
@@ -24,7 +24,7 @@ public class FallingPlataformController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.layer == 9)
+        if (collider.gameObject.layer == 9)
         {
             Destroy(gameObject);
         }
